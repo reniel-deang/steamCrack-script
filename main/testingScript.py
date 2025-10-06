@@ -3,6 +3,7 @@ import os
 import shutil
 import zipfile
 from pathlib import Path
+from dotenv import dotenv_values
 
 def url_exists_head(url, timeout=10):
     try:
@@ -66,33 +67,34 @@ def move_files_to_folder(files, target_folder):
 
 if __name__ == "__main__":
     # Example usage (replace appid and host as needed)
+
     appid = "240"
     host = "" # need for env
     url = f"{host}/{appid}.zip"
 
-    if not url_exists_head(url):
-        print(f"{url} not found (HEAD returned non-200).")
-    else:
-        local_zip = Path.cwd() / f"{appid}.zip"
-        print("Downloading...", url)
-        if download_file(url, local_zip):
-            print("Downloaded to", local_zip)
-            extract_dir = Path.cwd() / "extracted" / appid
-            if safe_extract_zip(local_zip, extract_dir):
-                print("Extracted to:", extract_dir)
-                # Look for .lua and .manifest in the extracted folder
-                found = find_files_by_ext(extract_dir, extensions={".lua", ".manifest"})
-                print(f"Found {len(found)} files: {[str(x) for x in found]}")
-                # Move them to user-specified safe folders (not Steam)
-                lua_target = Path.cwd() / "collected_luas"
-                manifest_target = Path.cwd() / "collected_manifests"
-                lua_files = [f for f in found if f.suffix.lower() == ".lua"]
-                manifest_files = [f for f in found if f.suffix.lower() == ".manifest"]
-                moved_luas = move_files_to_folder(lua_files, lua_target)
-                moved_manifests = move_files_to_folder(manifest_files, manifest_target)
-                print("Moved LUA files:", moved_luas)
-                print("Moved manifest files:", moved_manifests)
-            else:
-                print("Extraction failed.")
-        else:
-            print("Download failed.")
+    # if not url_exists_head(url):
+    #     print(f"{url} not found (HEAD returned non-200).")
+    # else:
+    #     local_zip = Path.cwd() / f"{appid}.zip"
+    #     print("Downloading...", url)
+    #     if download_file(url, local_zip):
+    #         print("Downloaded to", local_zip)
+    #         extract_dir = Path.cwd() / "extracted" / appid
+    #         if safe_extract_zip(local_zip, extract_dir):
+    #             print("Extracted to:", extract_dir)
+    #             # Look for .lua and .manifest in the extracted folder
+    #             found = find_files_by_ext(extract_dir, extensions={".lua", ".manifest"})
+    #             print(f"Found {len(found)} files: {[str(x) for x in found]}")
+    #             # Move them to user-specified safe folders (not Steam)
+    #             lua_target = Path.cwd() / "collected_luas"
+    #             manifest_target = Path.cwd() / "collected_manifests"
+    #             lua_files = [f for f in found if f.suffix.lower() == ".lua"]
+    #             manifest_files = [f for f in found if f.suffix.lower() == ".manifest"]
+    #             moved_luas = move_files_to_folder(lua_files, lua_target)
+    #             moved_manifests = move_files_to_folder(manifest_files, manifest_target)
+    #             print("Moved LUA files:", moved_luas)
+    #             print("Moved manifest files:", moved_manifests)
+    #         else:
+    #             print("Extraction failed.")
+    #     else:
+    #         print("Download failed.")
