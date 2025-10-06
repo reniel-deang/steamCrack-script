@@ -1,40 +1,29 @@
 # ----- THIS WILL BE THE MAIN CODE TO RUN ------
 
 import os
-from main import tests3
 from dotenv import load_dotenv
+from main import fetchConfig, checkDir, logger
 
 
 if __name__ == "__main__":
 
-    load_dotenv()
-    
     currentPath = os.path.dirname(os.path.abspath(__file__))
-    configFolder="fetchDb"
-    depotCache="depotcache"
-    stPlugin="stplug-in"
+    configFolder = "fetchDb"
+    gamePath = os.path.join(currentPath, configFolder)
 
-    gamePath=os.path.join(currentPath, configFolder)
+    # --- Get a logger for this module ---
+    logger = logger.setupLogger("steamCrack")
 
+    logger.info(" ---------- Starting steamCrack script ----------")
 
-    if not os.path.isdir(gamePath):
-        os.mkdir(gamePath)
-        print(f"Making directory in \"{gamePath}\" Successfull ......")
-    else:
-        print(f"Path \"{gamePath}\" Already Existing ......")
-    print(gamePath)
+    # ---Note that you need here a .env file. If you need it, just message me
+    load_dotenv()
+
     
-    depotCache=os.path.join(gamePath, "deptcache")
-    stPlugin=os.path.join(gamePath, "stplug-in")
 
-    if not os.path.isdir(depotCache) and not os.path.isdir(stPlugin):
-        os.mkdir(depotCache)
-        os.mkdir(stPlugin)
-    else:
-        print("Folder depot and stPlugin are already existing ......")
+    # --- Run checkDir.py ---
+    checkDir.checkDir(gamePath)
 
-    # ---- Sample game to fetch ----
-    tests3.fetchGame(1030300, os.getenv('STEAMCONFIG_HOST'))
-
+    fetchConfig.fetchGame(1030300, os.getenv('STEAMCONFIG_HOST'))
 
 

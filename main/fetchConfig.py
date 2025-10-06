@@ -1,27 +1,34 @@
 import requests
 import os
-from dotenv import load_dotenv
+import logging
+import pathlib as Path
 
 def fetchGame(gameID, envLink):
-
+    
+    logger = logging.getLogger("steamCrack")
 
     if gameID:
+
         gameFile=f"{envLink}/{gameID}.zip"
         file_path = f"./{gameID}.zip"
-        print(gameFile)
+        logger.info(f"Fetching with ID of {gameID} ...... ")
 
         try:
-            response = requests.get(gameFile)
 
+            response = requests.get(gameFile)
             if response.status_code == 200:
+                logger.info(f"Your game ID Has found and has status code of 200 (OK) ......")
                 with open(file_path, 'wb') as file:
                     file.write(response.content)
+                    logger.info(f"File {gameID}.zip downloaded ...... ")
             
             else:
-                print(f"No game {gameID} exist in our database!")
+                logger.error(f"Your game ID doesn't exist in our database ......")
 
         except Exception as e:
-            print (f"Something went wrong - {e}")
+            logger.error(f"Something went wrong . read output : {e}")
+    
+    return logger.info("Module fetchConfig.py success ......")
 
 
 
