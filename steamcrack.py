@@ -24,6 +24,6 @@ if __name__ == "__main__":
     # --- Run checkDir.py ---
     checkDir.checkDir(gamePath)
 
-    fetchConfig.fetchGame(1030300, os.getenv('STEAMCONFIG_HOST'))
+    fetchConfig.fetchGame(2897760, os.getenv('STEAMCONFIG_HOST'))
 
 
