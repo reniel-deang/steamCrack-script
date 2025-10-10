@@ -2,6 +2,7 @@ import requests
 import os
 import logging
 import pathlib as Path
+from main import extractConfig
 
 def fetchGame(gameID, envLink):
     
@@ -21,6 +22,14 @@ def fetchGame(gameID, envLink):
                 with open(file_path, 'wb') as file:
                     file.write(response.content)
                     logger.info(f"File {gameID}.zip downloaded ...... ")
+                    checkExtract = extractConfig.extractConfig(file_path, f"{gameID}.zip")
+
+                    if checkExtract == 200:
+                        logger.info(f"Extraction success ...... ")
+
+
+
+
             
             else:
                 logger.error(f"Your game ID doesn't exist in our database ......")
