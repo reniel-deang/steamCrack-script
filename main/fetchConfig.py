@@ -4,14 +4,14 @@ import logging
 import pathlib as Path
 from main import extractConfig
 
-def fetchGame(gameID, envLink):
+def fetchGame(gameID, configFolder, envLink):
     
     logger = logging.getLogger("steamCrack")
 
     if gameID:
 
         gameFile=f"{envLink}/{gameID}.zip"
-        file_path = f"./{gameID}.zip"
+        file_path = os.path.join(configFolder, f"{gameID}.zip")
         logger.info(f"Fetching with ID of {gameID} ...... ")
 
         try:
@@ -22,7 +22,7 @@ def fetchGame(gameID, envLink):
                 with open(file_path, 'wb') as file:
                     file.write(response.content)
                     logger.info(f"File {gameID}.zip downloaded ...... ")
-                    checkExtract = extractConfig.extractConfig(file_path, f"{gameID}.zip")
+                    checkExtract = extractConfig.extractConfig(file_path)#file_path
 
                     if checkExtract == 200:
                         logger.info(f"Extraction success ...... ")
