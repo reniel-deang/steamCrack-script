@@ -11,7 +11,7 @@ def fetchGame(gameID, configFolder, envLink):
     if gameID:
 
         gameFile=f"{envLink}/{gameID}.zip"
-        file_path = os.path.join(configFolder, f"{gameID}.zip")
+        file_path = os.path.join(f"./", f"{gameID}.zip")
         logger.info(f"Fetching with ID of {gameID} ...... ")
 
         try:
