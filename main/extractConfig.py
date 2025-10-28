@@ -21,9 +21,23 @@ def extractConfig(configPath):
             
             zipFile.extractall('./')
             logger.info(f"{configPath} extraction complete.")
+            placeConfig()
             return 200
 
     except zipfile.BadZipFile:
         logger.error(f"{configPath} is not a valid ZIP file or is corrupted.")
     except Exception as e:
         logger.error(f"Something went wrong while extracting {configPath}: {e}")
+
+
+def placeConfig():
+
+    for file in os.listdir("."):
+        if file.endswith(".lua"):
+            print("This is lua file")
+            print(file)
+        elif file.endswith(".manifest"):
+            print("This is manifest File")
+            print (file)
+
+        
