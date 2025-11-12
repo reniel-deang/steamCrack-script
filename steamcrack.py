@@ -20,8 +20,12 @@ if __name__ == "__main__":
     load_dotenv()
 
     # --- Run checkDir.py ---
-    checkDir.checkDir(configFolder)
+    depotCache, stPlugin = checkDir.checkDir(configFolder)
 
-    fetchConfig.fetchGame(1631080, configFolder, os.getenv('STEAMCONFIG_HOST'))
+    print(f"The path of depotcache is {depotCache}")
+    print(f"The path of stPlugin is {stPlugin}")
+    
+
+    fetchConfig.fetchGame(7800, configFolder, os.getenv('STEAMCONFIG_HOST'))
 
 

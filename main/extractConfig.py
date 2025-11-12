@@ -2,8 +2,10 @@ import zipfile
 import logging
 import os
 
+logger = logging.getLogger("steamCrack")
+
 def extractConfig(configPath):
-    logger = logging.getLogger("steamCrack")
+    
 
     if not configPath:
         logger.error("No config path provided.")

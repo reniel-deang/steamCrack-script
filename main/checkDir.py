@@ -38,8 +38,9 @@ def checkDir(configFolder):
         except Exception as e:
             logger.error(f"Something went wrong . read output : {e}")
             
+    logger.info("Module checkDir.py success ......")
 
-    return logger.info("Module checkDir.py success ......")
+    return depotCache, stPlugin
             
 
         
